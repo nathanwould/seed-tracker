@@ -12,27 +12,31 @@ generator client {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  name      String    @default("")
-  email     String    @unique @default("")
-  password  String
-  posts     Post[]    @relation("Post_author")
-  createdAt DateTime? @default(now())
-}
-
-model Post {
   id       String  @id @default(cuid())
-  title    String  @default("")
-  content  String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  author   User?   @relation("Post_author", fields: [authorId], references: [id])
-  authorId String? @map("author")
-  tags     Tag[]   @relation("Post_tags")
-
-  @@index([authorId])
+  name     String  @default("")
+  email    String  @unique @default("")
+  password String?
 }
 
-model Tag {
-  id    String @id @default(cuid())
-  name  String @default("")
-  posts Post[] @relation("Post_tags")
+model Seed {
+  id                                  String  @id @default(cuid())
+  name                                String  @default("")
+  species                             String  @default("")
+  plantType                           String  @default("")
+  companyName                         String  @default("")
+  link                                String  @default("")
+  packedForSeason                     String  @default("")
+  daysToEmerge                        String  @default("")
+  plantingDepth                       String  @default("")
+  seedSpacing                         String  @default("")
+  rowSpacing                          String  @default("")
+  daysToMaturity                      String  @default("")
+  weeksAfterLastFrostToStartIndoors   String  @default("")
+  weeksBeforeFirstFrostToStartIndoors String  @default("")
+  weeksAfterLastFrostToSowOutdoors    String  @default("")
+  weeksBeforeFirstFrostToSowOutdoors  String  @default("")
+  startIndoors                        Boolean @default(false)
+  directSow                           Boolean @default(false)
+  isHeirloom                          Boolean @default(false)
+  isOpenPollenated                    Boolean @default(false)
 }

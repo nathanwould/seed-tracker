@@ -26,6 +26,11 @@ export const Seed = list({
       validation: { isRequired: true }
     }),
     link: text(),
+    packedForSeason: text({
+      ui: {
+        description: 'The year it was packed for'
+      }
+    }),
     daysToEmerge: text({
       ui: {
         description: 'It can be a number or range of numbers'
@@ -47,8 +52,10 @@ export const Seed = list({
       }
     }),
     daysToMaturity: text(),
-    sowWeeksAfterLastFrost: integer(),
-    sowWeeksBeforeFirstFrost: integer(),
+    weeksAfterLastFrostToStartIndoors: text(),
+    weeksBeforeFirstFrostToStartIndoors: text(),
+    weeksAfterLastFrostToSowOutdoors: text(),
+    weeksBeforeFirstFrostToSowOutdoors: text(),
     startIndoors: checkbox(),
     directSow: checkbox(),
     isHeirloom: checkbox(),

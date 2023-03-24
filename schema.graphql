@@ -6,16 +6,11 @@ type User {
   name: String
   email: String
   password: PasswordState
-  posts(where: PostWhereInput! = {}, orderBy: [PostOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PostWhereUniqueInput): [Post!]
-  postsCount(where: PostWhereInput! = {}): Int
-  createdAt: DateTime
 }
 
 type PasswordState {
   isSet: Boolean!
 }
-
-scalar DateTime @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
 
 input UserWhereUniqueInput {
   id: ID
@@ -29,8 +24,7 @@ input UserWhereInput {
   id: IDFilter
   name: StringFilter
   email: StringFilter
-  posts: PostManyRelationFilter
-  createdAt: DateTimeNullableFilter
+  password: PasswordFilter
 }
 
 input IDFilter {
@@ -72,28 +66,14 @@ input NestedStringFilter {
   not: NestedStringFilter
 }
 
-input PostManyRelationFilter {
-  every: PostWhereInput
-  some: PostWhereInput
-  none: PostWhereInput
-}
-
-input DateTimeNullableFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: DateTimeNullableFilter
+input PasswordFilter {
+  isSet: Boolean!
 }
 
 input UserOrderByInput {
   id: OrderDirection
   name: OrderDirection
   email: OrderDirection
-  createdAt: OrderDirection
 }
 
 enum OrderDirection {
@@ -105,15 +85,6 @@ input UserUpdateInput {
   name: String
   email: String
   password: String
-  posts: PostRelateToManyForUpdateInput
-  createdAt: DateTime
-}
-
-input PostRelateToManyForUpdateInput {
-  disconnect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  create: [PostCreateInput!]
-  connect: [PostWhereUniqueInput!]
 }
 
 input UserUpdateArgs {
@@ -125,133 +96,136 @@ input UserCreateInput {
   name: String
   email: String
   password: String
-  posts: PostRelateToManyForCreateInput
-  createdAt: DateTime
 }
 
-input PostRelateToManyForCreateInput {
-  create: [PostCreateInput!]
-  connect: [PostWhereUniqueInput!]
-}
-
-type Post {
-  id: ID!
-  title: String
-  content: Post_content_Document
-  author: User
-  tags(where: TagWhereInput! = {}, orderBy: [TagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TagWhereUniqueInput): [Tag!]
-  tagsCount(where: TagWhereInput! = {}): Int
-}
-
-type Post_content_Document {
-  document(hydrateRelationships: Boolean! = false): JSON!
-}
-
-input PostWhereUniqueInput {
-  id: ID
-}
-
-input PostWhereInput {
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  NOT: [PostWhereInput!]
-  id: IDFilter
-  title: StringFilter
-  author: UserWhereInput
-  tags: TagManyRelationFilter
-}
-
-input TagManyRelationFilter {
-  every: TagWhereInput
-  some: TagWhereInput
-  none: TagWhereInput
-}
-
-input PostOrderByInput {
-  id: OrderDirection
-  title: OrderDirection
-}
-
-input PostUpdateInput {
-  title: String
-  content: JSON
-  author: UserRelateToOneForUpdateInput
-  tags: TagRelateToManyForUpdateInput
-}
-
-input UserRelateToOneForUpdateInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
-  disconnect: Boolean
-}
-
-input TagRelateToManyForUpdateInput {
-  disconnect: [TagWhereUniqueInput!]
-  set: [TagWhereUniqueInput!]
-  create: [TagCreateInput!]
-  connect: [TagWhereUniqueInput!]
-}
-
-input PostUpdateArgs {
-  where: PostWhereUniqueInput!
-  data: PostUpdateInput!
-}
-
-input PostCreateInput {
-  title: String
-  content: JSON
-  author: UserRelateToOneForCreateInput
-  tags: TagRelateToManyForCreateInput
-}
-
-input UserRelateToOneForCreateInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
-}
-
-input TagRelateToManyForCreateInput {
-  create: [TagCreateInput!]
-  connect: [TagWhereUniqueInput!]
-}
-
-type Tag {
+type Seed {
   id: ID!
   name: String
-  posts(where: PostWhereInput! = {}, orderBy: [PostOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PostWhereUniqueInput): [Post!]
-  postsCount(where: PostWhereInput! = {}): Int
+  species: String
+  plantType: String
+  companyName: String
+  link: String
+  packedForSeason: String
+  daysToEmerge: String
+  plantingDepth: String
+  seedSpacing: String
+  rowSpacing: String
+  daysToMaturity: String
+  weeksAfterLastFrostToStartIndoors: String
+  weeksBeforeFirstFrostToStartIndoors: String
+  weeksAfterLastFrostToSowOutdoors: String
+  weeksBeforeFirstFrostToSowOutdoors: String
+  startIndoors: Boolean
+  directSow: Boolean
+  isHeirloom: Boolean
+  isOpenPollenated: Boolean
 }
 
-input TagWhereUniqueInput {
+input SeedWhereUniqueInput {
   id: ID
 }
 
-input TagWhereInput {
-  AND: [TagWhereInput!]
-  OR: [TagWhereInput!]
-  NOT: [TagWhereInput!]
+input SeedWhereInput {
+  AND: [SeedWhereInput!]
+  OR: [SeedWhereInput!]
+  NOT: [SeedWhereInput!]
   id: IDFilter
   name: StringFilter
-  posts: PostManyRelationFilter
+  species: StringFilter
+  plantType: StringFilter
+  companyName: StringFilter
+  link: StringFilter
+  packedForSeason: StringFilter
+  daysToEmerge: StringFilter
+  plantingDepth: StringFilter
+  seedSpacing: StringFilter
+  rowSpacing: StringFilter
+  daysToMaturity: StringFilter
+  weeksAfterLastFrostToStartIndoors: StringFilter
+  weeksBeforeFirstFrostToStartIndoors: StringFilter
+  weeksAfterLastFrostToSowOutdoors: StringFilter
+  weeksBeforeFirstFrostToSowOutdoors: StringFilter
+  startIndoors: BooleanFilter
+  directSow: BooleanFilter
+  isHeirloom: BooleanFilter
+  isOpenPollenated: BooleanFilter
 }
 
-input TagOrderByInput {
+input BooleanFilter {
+  equals: Boolean
+  not: BooleanFilter
+}
+
+input SeedOrderByInput {
   id: OrderDirection
   name: OrderDirection
+  species: OrderDirection
+  plantType: OrderDirection
+  companyName: OrderDirection
+  link: OrderDirection
+  packedForSeason: OrderDirection
+  daysToEmerge: OrderDirection
+  plantingDepth: OrderDirection
+  seedSpacing: OrderDirection
+  rowSpacing: OrderDirection
+  daysToMaturity: OrderDirection
+  weeksAfterLastFrostToStartIndoors: OrderDirection
+  weeksBeforeFirstFrostToStartIndoors: OrderDirection
+  weeksAfterLastFrostToSowOutdoors: OrderDirection
+  weeksBeforeFirstFrostToSowOutdoors: OrderDirection
+  startIndoors: OrderDirection
+  directSow: OrderDirection
+  isHeirloom: OrderDirection
+  isOpenPollenated: OrderDirection
 }
 
-input TagUpdateInput {
+input SeedUpdateInput {
   name: String
-  posts: PostRelateToManyForUpdateInput
+  species: String
+  plantType: String
+  companyName: String
+  link: String
+  packedForSeason: String
+  daysToEmerge: String
+  plantingDepth: String
+  seedSpacing: String
+  rowSpacing: String
+  daysToMaturity: String
+  weeksAfterLastFrostToStartIndoors: String
+  weeksBeforeFirstFrostToStartIndoors: String
+  weeksAfterLastFrostToSowOutdoors: String
+  weeksBeforeFirstFrostToSowOutdoors: String
+  startIndoors: Boolean
+  directSow: Boolean
+  isHeirloom: Boolean
+  isOpenPollenated: Boolean
 }
 
-input TagUpdateArgs {
-  where: TagWhereUniqueInput!
-  data: TagUpdateInput!
+input SeedUpdateArgs {
+  where: SeedWhereUniqueInput!
+  data: SeedUpdateInput!
 }
 
-input TagCreateInput {
+input SeedCreateInput {
   name: String
-  posts: PostRelateToManyForCreateInput
+  species: String
+  plantType: String
+  companyName: String
+  link: String
+  packedForSeason: String
+  daysToEmerge: String
+  plantingDepth: String
+  seedSpacing: String
+  rowSpacing: String
+  daysToMaturity: String
+  weeksAfterLastFrostToStartIndoors: String
+  weeksBeforeFirstFrostToStartIndoors: String
+  weeksAfterLastFrostToSowOutdoors: String
+  weeksBeforeFirstFrostToSowOutdoors: String
+  startIndoors: Boolean
+  directSow: Boolean
+  isHeirloom: Boolean
+  isOpenPollenated: Boolean
 }
 
 """
@@ -266,18 +240,12 @@ type Mutation {
   updateUsers(data: [UserUpdateArgs!]!): [User]
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
-  createPost(data: PostCreateInput!): Post
-  createPosts(data: [PostCreateInput!]!): [Post]
-  updatePost(where: PostWhereUniqueInput!, data: PostUpdateInput!): Post
-  updatePosts(data: [PostUpdateArgs!]!): [Post]
-  deletePost(where: PostWhereUniqueInput!): Post
-  deletePosts(where: [PostWhereUniqueInput!]!): [Post]
-  createTag(data: TagCreateInput!): Tag
-  createTags(data: [TagCreateInput!]!): [Tag]
-  updateTag(where: TagWhereUniqueInput!, data: TagUpdateInput!): Tag
-  updateTags(data: [TagUpdateArgs!]!): [Tag]
-  deleteTag(where: TagWhereUniqueInput!): Tag
-  deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
+  createSeed(data: SeedCreateInput!): Seed
+  createSeeds(data: [SeedCreateInput!]!): [Seed]
+  updateSeed(where: SeedWhereUniqueInput!, data: SeedUpdateInput!): Seed
+  updateSeeds(data: [SeedUpdateArgs!]!): [Seed]
+  deleteSeed(where: SeedWhereUniqueInput!): Seed
+  deleteSeeds(where: [SeedWhereUniqueInput!]!): [Seed]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -304,12 +272,9 @@ type Query {
   users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UserWhereUniqueInput): [User!]
   user(where: UserWhereUniqueInput!): User
   usersCount(where: UserWhereInput! = {}): Int
-  posts(where: PostWhereInput! = {}, orderBy: [PostOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PostWhereUniqueInput): [Post!]
-  post(where: PostWhereUniqueInput!): Post
-  postsCount(where: PostWhereInput! = {}): Int
-  tags(where: TagWhereInput! = {}, orderBy: [TagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TagWhereUniqueInput): [Tag!]
-  tag(where: TagWhereUniqueInput!): Tag
-  tagsCount(where: TagWhereInput! = {}): Int
+  seeds(where: SeedWhereInput! = {}, orderBy: [SeedOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: SeedWhereUniqueInput): [Seed!]
+  seed(where: SeedWhereUniqueInput!): Seed
+  seedsCount(where: SeedWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
